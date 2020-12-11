@@ -32,13 +32,23 @@ class AdminCheck
          $user = Auth::user();
          $roles = $user->roles;
          foreach($roles as $role){
-            if($role->name  == "User"){
+            if($role->name  == "Admin" || $role->name  == "Editor" ){
+                return $next($request);
+            }else{
                 return response()->json([
-                    'msg' => 'Cant acess this route'
-                ], 403);
+                             'msg' => 'Cant acess this route'
+                         ], 403);
             }
 
          }
+//          foreach($roles as $role){
+//             if($role->name  == "User"){
+//                 return response()->json([
+//                     'msg' => 'Cant acess this route'
+//                 ], 403);
+//             }
+
+//          }
         //  if($user->roles->name == "User"){
         //      return response()->json([
         //          'msg' => 'Cant acess this route'
